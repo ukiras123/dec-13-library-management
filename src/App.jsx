@@ -19,7 +19,6 @@ import Clients from './pages/clients/Clients'
 import Login from './pages/auth/Login'
 
 function App() {
-
   return (
     <>
       <Routes>

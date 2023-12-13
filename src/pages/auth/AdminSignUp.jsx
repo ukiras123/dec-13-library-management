@@ -74,6 +74,8 @@ function AdminSignUp() {
                 {/* Anything inside BaseLayout will become a children */}
                 {/* children prop is pre-defined by react */}
                 <div className='p-3 border shadow rounded admin-form'>
+                    <h1>Register Admin</h1>
+
                     <Form onSubmit={handleOnSubmit}>
                         {inputs.map(input => {
                             return <CustomInput key={input.label} {...input} onChange={handleOnChange} />
