@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import BaseLayout from '../../components/layouts/BaseLayout'
 import { Button, Form } from 'react-bootstrap'
 import CustomInput from '../../components/customInput/CustomInput'
+import { toast } from 'react-toastify'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth, db } from '../../firebase-config'
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
 
 function AdminSignUp() {
 
@@ -51,7 +55,9 @@ function AdminSignUp() {
         },
     ]
 
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({
+        role: "admin"
+    });
 
     const handleOnChange = (e) => {
         const { name, value } = e.target;
@@ -61,12 +67,48 @@ function AdminSignUp() {
         })
     }
 
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault(); //it will stop page from refreshing
-        console.log(formData)
         // Validate the input
-        // TODO: Do what you need to do with this obj
-        // Firebase , DB Save, ....
+        console.log(formData)
+        const { password, confirmPassword, ...rest } = formData;
+        const { email } = formData;
+        if (password !== confirmPassword) {
+            return toast.error("Password Did not match!")
+        }
+        try {
+
+
+            const authSnapPromise = createUserWithEmailAndPassword(auth, email, password)
+            toast.promise(authSnapPromise, {
+                pending: "In Progress..."
+            })
+            const authSnap = await authSnapPromise;
+            const uid = authSnap.user.uid
+
+            // TODO: User this UID as a id anc create a collection in firestore with formData
+            const userDoc = doc(db, "users", uid);
+            await setDoc(userDoc, rest);
+            toast.success("User Created!")
+        } catch (e) {
+            console.log(e)
+            if (e.message.includes('auth/email-already-in-use')) {
+                toast.error("Email Already Used")
+            } else {
+                toast.error(e.message)
+            }
+        }
+        // .then((authSnap) => {
+        //     // Signed up 
+        //     const user = authSnap.user;
+        //     console.log("User", user)
+        //     // ...
+        // })
+        // .catch((error) => {
+        //     const errorCode = error.code;
+        //     const errorMessage = error.message;
+        //     console.log(errorCode, errorMessage)
+        // });
     }
     return (
         <>
