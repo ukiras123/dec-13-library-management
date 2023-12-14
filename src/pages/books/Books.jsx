@@ -1,8 +1,11 @@
 import React from 'react'
+import AdminLayout from '../../components/layouts/AdminLayout'
 
 function Books() {
     return (
-        <div>Books</div>
+        <AdminLayout title="Book">
+            book
+        </AdminLayout>
     )
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import BaseLayout from '../../components/layouts/BaseLayout'
 import { Button, Form } from 'react-bootstrap'
@@ -7,9 +7,10 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../../firebase-config'
 import { toast } from 'react-toastify'
 import { doc, getDoc } from 'firebase/firestore'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setUserInfo } from '../../redux/auth/authSlice'
 import { getUserInfoAction } from '../../redux/auth/authAction'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Login() {
     const inputs = [
@@ -34,6 +35,17 @@ function Login() {
 
 
     const [formData, setFormData] = useState({});
+    const navigate = useNavigate()
+    const { userInfo } = useSelector(state => state.auth)
+
+    useEffect(() => {
+        console.log("Unside UserEffect", userInfo)
+        if (userInfo.uid) {
+            navigate("/dashboard")
+        }
+    }, [userInfo, navigate])
+
+
     const dispatch = useDispatch();
     const handleOnChange = (e) => {
         const { name, value } = e.target;
@@ -92,6 +104,7 @@ function Login() {
                             Login
                         </Button>
                     </Form>
+                    Forget your password? <Link to='/reset-password'>Reset</Link>
                 </div>
             </BaseLayout>
         </>

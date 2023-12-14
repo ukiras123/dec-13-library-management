@@ -1,8 +1,11 @@
 import React from 'react'
+import AdminLayout from '../../components/layouts/AdminLayout'
 
 function History() {
     return (
-        <div>History</div>
+        <AdminLayout title="History">
+            body
+        </AdminLayout>
     )
 }
 

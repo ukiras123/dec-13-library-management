@@ -18,6 +18,7 @@ import EditBook from './pages/books/EditBook'
 import History from './pages/history/History'
 import Clients from './pages/clients/Clients'
 import Login from './pages/auth/Login'
+import PrivateRoute from './components/privateRoute/PrivateRoute';
 
 function App() {
   return (
@@ -27,15 +28,17 @@ function App() {
         <Route path='/' element={<Login />} ></Route>
         <Route path='/login' element={<Login />} ></Route>
         <Route path='/reset-password' element={<ResetPassword />} ></Route>
-        <Route path='/admin-signup' element={<AdminSignUp />} ></Route>
+        <Route path='/admin-signup' element={<PrivateRoute><AdminSignUp /></PrivateRoute>} ></Route>
+        {/* <Route path='/admin-signup' element={<AdminSignUp />} ></Route> */}
 
-        <Route path='/dashboard' element={<Dashboard />} ></Route>
-        <Route path='/books' element={<Books />} ></Route>
-        <Route path='/add-book' element={<AddBook />} ></Route>
-        <Route path='/edit-book' element={<EditBook />} ></Route>
+        {/* Private Route */}
+        <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} ></Route>
+        <Route path='/book' element={<PrivateRoute><Books /></PrivateRoute>} ></Route>
+        <Route path='/add-book' element={<PrivateRoute><AddBook /></PrivateRoute>} ></Route>
+        <Route path='/edit-book' element={<PrivateRoute><EditBook /></PrivateRoute>} ></Route>
 
-        <Route path='/history' element={<History />} ></Route>
-        <Route path='/clients' element={<Clients />} ></Route>
+        <Route path='/history' element={<PrivateRoute><History /></PrivateRoute>} ></Route>
+        <Route path='/client' element={<PrivateRoute><Clients /></PrivateRoute>} ></Route>
 
       </Routes>
       <ToastContainer />
