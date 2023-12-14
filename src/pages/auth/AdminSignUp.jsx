@@ -6,6 +6,7 @@ import { toast } from 'react-toastify'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../../firebase-config'
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
+import { useNavigate } from 'react-router-dom'
 
 function AdminSignUp() {
 
@@ -54,7 +55,7 @@ function AdminSignUp() {
             minLength: 6
         },
     ]
-
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         role: "admin"
     });
@@ -70,7 +71,6 @@ function AdminSignUp() {
     const handleOnSubmit = async (e) => {
         e.preventDefault(); //it will stop page from refreshing
         // Validate the input
-        console.log(formData)
         const { password, confirmPassword, ...rest } = formData;
         const { email } = formData;
         if (password !== confirmPassword) {
@@ -88,8 +88,10 @@ function AdminSignUp() {
 
             // TODO: User this UID as a id anc create a collection in firestore with formData
             const userDoc = doc(db, "users", uid);
-            await setDoc(userDoc, rest);
+            await setDoc(userDoc, {...rest, uid});
             toast.success("User Created!")
+            // Redirect to login page
+            navigate("/login")
         } catch (e) {
             console.log(e)
             if (e.message.includes('auth/email-already-in-use')) {
@@ -98,17 +100,6 @@ function AdminSignUp() {
                 toast.error(e.message)
             }
         }
-        // .then((authSnap) => {
-        //     // Signed up 
-        //     const user = authSnap.user;
-        //     console.log("User", user)
-        //     // ...
-        // })
-        // .catch((error) => {
-        //     const errorCode = error.code;
-        //     const errorMessage = error.message;
-        //     console.log(errorCode, errorMessage)
-        // });
     }
     return (
         <>
