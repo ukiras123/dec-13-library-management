@@ -88,7 +88,7 @@ function AdminSignUp() {
 
             // TODO: User this UID as a id anc create a collection in firestore with formData
             const userDoc = doc(db, "users", uid);
-            await setDoc(userDoc, {...rest, uid});
+            await setDoc(userDoc, { ...rest, uid });
             toast.success("User Created!")
             // Redirect to login page
             navigate("/login")
