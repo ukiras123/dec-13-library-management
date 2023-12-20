@@ -10,9 +10,10 @@ import { doc, getDoc } from 'firebase/firestore'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserInfo } from '../../redux/auth/authSlice'
 import { getUserInfoAction } from '../../redux/auth/authAction'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 function Login() {
+    const locationDetail = useLocation()
     const inputs = [
 
         {
@@ -41,7 +42,11 @@ function Login() {
     useEffect(() => {
         console.log("Unside UserEffect", userInfo)
         if (userInfo.uid) {
-            navigate("/dashboard")
+            if (locationDetail?.state?.path) {
+                navigate(locationDetail?.state?.path)
+            } else {
+                navigate("/dashboard")
+            }
         }
     }, [userInfo, navigate])
 
