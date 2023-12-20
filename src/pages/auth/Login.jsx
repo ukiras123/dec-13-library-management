@@ -104,7 +104,12 @@ function Login() {
                             Login
                         </Button>
                     </Form>
-                    Forget your password? <Link to='/reset-password'>Reset</Link>
+                    <div>
+                        Forget your password? <Link to='/reset-password'>Reset</Link>
+                    </div>
+                    <div>
+                        Don't have account? <Link to='/sign-up'>Sign Up</Link>
+                    </div>
                 </div>
             </BaseLayout>
         </>

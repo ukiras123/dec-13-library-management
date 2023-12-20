@@ -19,14 +19,19 @@ import History from './pages/history/History'
 import Clients from './pages/clients/Clients'
 import Login from './pages/auth/Login'
 import PrivateRoute from './components/privateRoute/PrivateRoute';
+import Home from './pages/home/Home';
+import BookLanding from './pages/books/BookLanding';
+import SignUp from './pages/auth/SignUp';
 
 function App() {
   return (
     <>
       <Routes>
         {/* We will later update this (/) route to display homepage */}
-        <Route path='/' element={<Login />} ></Route>
+        <Route path='/' element={<Home />} ></Route>
+        <Route path='/books/:id' element={<BookLanding />} ></Route>
         <Route path='/login' element={<Login />} ></Route>
+        <Route path='/sign-up' element={<SignUp />} ></Route>
         <Route path='/reset-password' element={<ResetPassword />} ></Route>
         <Route path='/admin-signup' element={<PrivateRoute><AdminSignUp /></PrivateRoute>} ></Route>
         {/* <Route path='/admin-signup' element={<AdminSignUp />} ></Route> */}
