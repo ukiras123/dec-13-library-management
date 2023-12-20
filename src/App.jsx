@@ -35,7 +35,7 @@ function App() {
         <Route path='/dashboard' element={<PrivateRoute><Dashboard /></PrivateRoute>} ></Route>
         <Route path='/book' element={<PrivateRoute><Books /></PrivateRoute>} ></Route>
         <Route path='/add-book' element={<PrivateRoute><AddBook /></PrivateRoute>} ></Route>
-        <Route path='/edit-book' element={<PrivateRoute><EditBook /></PrivateRoute>} ></Route>
+        <Route path='/book/edit/:id' element={<PrivateRoute><EditBook /></PrivateRoute>} ></Route>
 
         <Route path='/history' element={<PrivateRoute><History /></PrivateRoute>} ></Route>
         <Route path='/client' element={<PrivateRoute><Clients /></PrivateRoute>} ></Route>
