@@ -22,6 +22,7 @@ import PrivateRoute from './components/privateRoute/PrivateRoute';
 import Home from './pages/home/Home';
 import BookLanding from './pages/books/BookLanding';
 import SignUp from './pages/auth/SignUp';
+import { ADMIN_ONLY } from './utils';
 
 function App() {
   return (
@@ -42,7 +43,7 @@ function App() {
         <Route path='/add-book' element={<PrivateRoute><AddBook /></PrivateRoute>} ></Route>
         <Route path='/book/edit/:id' element={<PrivateRoute><EditBook /></PrivateRoute>} ></Route>
 
-        <Route path='/history' element={<PrivateRoute><History /></PrivateRoute>} ></Route>
+        <Route path='/history' element={<PrivateRoute clientAccess={true}><History /></PrivateRoute>} ></Route>
         <Route path='/client' element={<PrivateRoute><Clients /></PrivateRoute>} ></Route>
 
       </Routes>

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase-config';
 import { setUserInfo } from '../../redux/auth/authSlice';
+import { isClient } from '../../utils';
 
 function Header() {
     const { userInfo } = useSelector(state => state.auth)
@@ -25,7 +26,7 @@ function Header() {
                     <Nav className="ms-auto">
                         {userInfo?.uid ? (
                             <>
-                                <Link className='nav-link' to="/dashboard">Dashboard</Link>
+                                {isClient(userInfo) ? <Link className='nav-link' to="/history">History</Link> : <Link className='nav-link' to="/dashboard">Dashboard</Link>}
                                 <Link className='nav-link' to="#" onClick={handleLogout}>Logout</Link>
                             </>
                         ) :

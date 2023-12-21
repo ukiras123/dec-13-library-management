@@ -65,11 +65,11 @@ function BookLanding() {
                                     selectedBook?.isAvailable ?
                                         <Button onClick={handleOnBorrow}>Borrow Book</Button>
                                         : <Button disabled>Available From: {new Date(selectedBook?.availableFrom).toDateString()}</Button>)
-
                                 :
                                 <Link to='/login' state={{ path: `/books/${id}` }}>
                                     <Button>Login to Borrow</Button>
-                                </Link>}
+                                </Link>
+                            }
                         </div>
                     </Col>
 
