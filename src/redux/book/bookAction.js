@@ -2,13 +2,14 @@ import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, setDoc } from "fir
 import { toast } from "react-toastify"
 import { db } from "../../firebase-config"
 import { setBookList, setSelectedBook } from "./bookSlice"
+import { COLLECTION } from "../../utils"
 
 
 // CRUD Operations
 export const addBookAction = (bookObj) => async () => {
     try {
         console.log("Saving to DB...", bookObj)
-        const collectionRef = collection(db, "books");
+        const collectionRef = collection(db, COLLECTION.BOOKS);
         const docRefPromise = addDoc(collectionRef, bookObj)
         toast.promise(docRefPromise, {
             pending: "In Progress..."
@@ -25,7 +26,7 @@ export const addBookAction = (bookObj) => async () => {
 export const getBookListAction = () => async (dispatch) => {
     try {
 
-        const collectionRef = collection(db, "books");
+        const collectionRef = collection(db, COLLECTION.BOOKS);
         const querySnapshot = await getDocs(collectionRef);
         const bookArr = []
         querySnapshot.forEach((doc) => {
@@ -45,7 +46,7 @@ export const getBookListAction = () => async (dispatch) => {
 
 export const updateBookAction = ({ id, ...rest }) => async (dispatch) => {
     try {
-        const bookRef = doc(db, "books", id);
+        const bookRef = doc(db, COLLECTION.BOOKS, id);
         const docPromise = setDoc(bookRef, rest, { merge: true })
         toast.promise(docPromise, {
             pending: "In Progress..."
@@ -83,7 +84,7 @@ export const getBookById = (id) => async (dispatch) => {
 
 export const deleteBookAction = (id) => async (dispatch) => {
     try {
-        const bookRef = doc(db, "books", id);
+        const bookRef = doc(db, COLLECTION.BOOKS, id);
         const docPromise = deleteDoc(bookRef)
         toast.promise(docPromise, {
             pending: "In Progress..."
